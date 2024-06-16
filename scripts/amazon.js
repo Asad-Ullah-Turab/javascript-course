@@ -1,4 +1,4 @@
-import { cart, AddToCart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productsHTML = "";
@@ -65,6 +65,6 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     let quantity = document.querySelector(
       `.js-product-quantity-${productId}`
     ).value;
-    AddToCart(productId, parseInt(quantity));
+    addToCart(productId, parseInt(quantity));
   });
 });

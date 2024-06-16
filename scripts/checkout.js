@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, DeleteFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let checkoutHtml = "";
@@ -12,7 +12,7 @@ cart.forEach((cartItem) => {
   });
   if (productItem) {
     checkoutHtml += `
-      <div class="cart-item-container">
+      <div class="cart-item-container js-cart-item-container-${cartItem.id}">
         <div class="delivery-date">Delivery date: Tuesday, June 21</div>
 
         <div class="cart-item-details-grid">
@@ -33,7 +33,8 @@ cart.forEach((cartItem) => {
               <span class="update-quantity-link link-primary">
                 Update
               </span>
-              <span class="delete-quantity-link link-primary">
+              <span class="delete-quantity-link link-primary js-delete-link"
+                data-product-id="${cartItem.id}">
                 Delete
               </span>
             </div>
@@ -48,7 +49,7 @@ cart.forEach((cartItem) => {
                 type="radio"
                 checked
                 class="delivery-option-input"
-                name="delivery-option-1"
+                name="delivery-option-${cartItem.id}"
               />
               <div>
                 <div class="delivery-option-date">Tuesday, June 21</div>
@@ -59,7 +60,7 @@ cart.forEach((cartItem) => {
               <input
                 type="radio"
                 class="delivery-option-input"
-                name="delivery-option-1"
+                name="delivery-option-${cartItem.id}"
               />
               <div>
                 <div class="delivery-option-date">Wednesday, June 15</div>
@@ -70,7 +71,7 @@ cart.forEach((cartItem) => {
               <input
                 type="radio"
                 class="delivery-option-input"
-                name="delivery-option-1"
+                name="delivery-option-${cartItem.id}"
               />
               <div>
                 <div class="delivery-option-date">Monday, June 13</div>
@@ -83,6 +84,13 @@ cart.forEach((cartItem) => {
     `;
   }
 });
-
-console.log(checkoutHtml);
 document.querySelector(".order-summary").innerHTML = checkoutHtml;
+
+document.querySelectorAll(".js-delete-link").forEach((deleteLink) => {
+  deleteLink.addEventListener("click", () => {
+    const productId = deleteLink.getAttribute("data-product-id");
+    DeleteFromCart(productId);
+
+    document.querySelector(`.js-cart-item-container-${productId}`).remove();
+  });
+});
