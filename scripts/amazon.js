@@ -68,3 +68,5 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     addToCart(productId, parseInt(quantity));
   });
 });
+
+document.querySelector(".js-cart-quantity").textContent = cart.length;

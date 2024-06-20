@@ -1,17 +1,15 @@
 import { cart, DeleteFromCart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, GetProductById } from "../data/products.js";
+import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
 
-let checkoutHtml = "";
+let today = dayjs();
 
-cart.forEach((cartItem) => {
-  let productItem;
-  products.forEach((product) => {
-    if (product.id === cartItem.id) {
-      productItem = product;
-    }
-  });
-  if (productItem) {
-    checkoutHtml += `
+function RenderProducts() {
+  let checkoutHtml = "";
+  cart.forEach((cartItem) => {
+    const productItem = GetProductById(cartItem.id);
+    if (productItem) {
+      checkoutHtml += `
       <div class="cart-item-container js-cart-item-container-${cartItem.id}">
         <div class="delivery-date">Delivery date: Tuesday, June 21</div>
 
@@ -82,15 +80,17 @@ cart.forEach((cartItem) => {
         </div>
       </div>
     `;
-  }
-});
-document.querySelector(".order-summary").innerHTML = checkoutHtml;
-
-document.querySelectorAll(".js-delete-link").forEach((deleteLink) => {
-  deleteLink.addEventListener("click", () => {
-    const productId = deleteLink.getAttribute("data-product-id");
-    DeleteFromCart(productId);
-
-    document.querySelector(`.js-cart-item-container-${productId}`).remove();
+    }
   });
-});
+  document.querySelector(".order-summary").innerHTML = checkoutHtml;
+
+  document.querySelectorAll(".js-delete-link").forEach((deleteLink) => {
+    deleteLink.addEventListener("click", () => {
+      const productId = deleteLink.getAttribute("data-product-id");
+      DeleteFromCart(productId);
+      RenderProducts();
+    });
+  });
+}
+
+RenderProducts();
