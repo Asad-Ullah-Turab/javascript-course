@@ -1,8 +1,10 @@
 import { cart, DeleteFromCart } from "../data/cart.js";
 import { products, GetProductById } from "../data/products.js";
-import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js";
-
-let today = dayjs();
+import {
+  deliveryOptions,
+  FormatDate,
+  FormatPrice,
+} from "../data/deliveryOptions.js";
 
 function RenderProducts() {
   let checkoutHtml = "";
@@ -42,40 +44,7 @@ function RenderProducts() {
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            <div class="delivery-option">
-              <input
-                type="radio"
-                checked
-                class="delivery-option-input"
-                name="delivery-option-${cartItem.id}"
-              />
-              <div>
-                <div class="delivery-option-date">Tuesday, June 21</div>
-                <div class="delivery-option-price">FREE Shipping</div>
-              </div>
-            </div>
-            <div class="delivery-option">
-              <input
-                type="radio"
-                class="delivery-option-input"
-                name="delivery-option-${cartItem.id}"
-              />
-              <div>
-                <div class="delivery-option-date">Wednesday, June 15</div>
-                <div class="delivery-option-price">$4.99 - Shipping</div>
-              </div>
-            </div>
-            <div class="delivery-option">
-              <input
-                type="radio"
-                class="delivery-option-input"
-                name="delivery-option-${cartItem.id}"
-              />
-              <div>
-                <div class="delivery-option-date">Monday, June 13</div>
-                <div class="delivery-option-price">$9.99 - Shipping</div>
-              </div>
-            </div>
+            ${RenderDeliveryOptions(cartItem.id)}
           </div>
         </div>
       </div>
@@ -91,6 +60,29 @@ function RenderProducts() {
       RenderProducts();
     });
   });
+}
+
+function RenderDeliveryOptions(id) {
+  let deliveryOptionsHtml = "";
+  deliveryOptions.forEach((option, index) => {
+    deliveryOptionsHtml += `
+      <div class="delivery-option">
+        <input
+          type="radio"
+          checked
+          class="delivery-option-input"
+          name="delivery-option-${id}"
+        />
+        <div>
+          <div class="delivery-option-date">${FormatDate(option.date)}</div>
+          <div class="delivery-option-price">${FormatPrice(
+            option.priceCents
+          )}</div>
+        </div>
+      </div>
+    `;
+  });
+  return deliveryOptionsHtml;
 }
 
 RenderProducts();
