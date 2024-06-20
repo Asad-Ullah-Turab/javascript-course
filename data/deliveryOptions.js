@@ -25,3 +25,13 @@ export function FormatDate(date) {
 export function FormatPrice(priceCents) {
   return priceCents > 0 ? `$${priceCents / 100}` : `FREE Shipping`;
 }
+
+export function GetDeliveryDate(deliveryOptionId) {
+  let matchingOption;
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      matchingOption = option;
+    }
+  });
+  return FormatDate(matchingOption.date);
+}

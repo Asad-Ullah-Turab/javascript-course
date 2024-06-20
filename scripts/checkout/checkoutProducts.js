@@ -4,6 +4,7 @@ import {
   deliveryOptions,
   FormatDate,
   FormatPrice,
+  GetDeliveryDate,
 } from "../../data/deliveryOptions.js";
 
 export function RenderProducts() {
@@ -13,7 +14,9 @@ export function RenderProducts() {
     if (productItem) {
       checkoutHtml += `
       <div class="cart-item-container js-cart-item-container-${cartItem.id}">
-        <div class="delivery-date">Delivery date: Tuesday, June 21</div>
+        <div class="delivery-date">Delivery date: ${GetDeliveryDate(
+          cartItem.deliveryOptionId
+        )}</div>
 
         <div class="cart-item-details-grid">
           <img
@@ -44,7 +47,7 @@ export function RenderProducts() {
             <div class="delivery-options-title">
               Choose a delivery option:
             </div>
-            ${RenderDeliveryOptions(cartItem.id)}
+            ${RenderDeliveryOptions(cartItem)}
           </div>
         </div>
       </div>
@@ -60,18 +63,32 @@ export function RenderProducts() {
       RenderProducts();
     });
   });
+
+  cart.forEach((cartItem) => {
+    let deliveryOptionsElems = document.getElementsByName(
+      `delivery-option-${cartItem.id}`
+    );
+
+    deliveryOptionsElems.forEach((option) => {
+      option.addEventListener("change", () => {
+        cartItem.deliveryOptionId = parseInt(option.value);
+        RenderProducts();
+      });
+    });
+  });
 }
 
-function RenderDeliveryOptions(id) {
+function RenderDeliveryOptions(cartItem) {
   let deliveryOptionsHtml = "";
   deliveryOptions.forEach((option, index) => {
     deliveryOptionsHtml += `
       <div class="delivery-option">
         <input
           type="radio"
-          checked
           class="delivery-option-input"
-          name="delivery-option-${id}"
+          name="delivery-option-${cartItem.id}"
+          value="${option.id}"
+          ${cartItem.deliveryOptionId === option.id ? "checked" : ""}
         />
         <div>
           <div class="delivery-option-date">${FormatDate(option.date)}</div>

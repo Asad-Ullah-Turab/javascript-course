@@ -14,8 +14,6 @@ if (cart.length === 0) {
     },
   ];
   SaveToStorage();
-} else {
-  console.log(cart);
 }
 
 export function addToCart(itemId, quantity = 1, deliveryOptionId = 1) {
