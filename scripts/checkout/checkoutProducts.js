@@ -6,6 +6,7 @@ import {
   FormatPrice,
   GetDeliveryDate,
 } from "../../data/deliveryOptions.js";
+import { RenderPaymentSummary } from "./paymentSummary.js";
 
 export function RenderProducts() {
   let checkoutHtml = "";
@@ -73,6 +74,7 @@ export function RenderProducts() {
       option.addEventListener("change", () => {
         cartItem.deliveryOptionId = parseInt(option.value);
         RenderProducts();
+        RenderPaymentSummary();
       });
     });
   });

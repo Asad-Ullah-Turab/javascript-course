@@ -480,3 +480,7 @@ export function GetProductById(id) {
   });
   return matchingItem;
 }
+
+export function CentsToDollars(priceCents) {
+  return `$${(priceCents / 100).toFixed(2)}`;
+}

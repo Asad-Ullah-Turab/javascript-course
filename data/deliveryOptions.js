@@ -26,6 +26,16 @@ export function FormatPrice(priceCents) {
   return priceCents > 0 ? `$${priceCents / 100}` : `FREE Shipping`;
 }
 
+export function GetDeliveryPrice(deliveryOptionId) {
+  let matchingOption;
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      matchingOption = option;
+    }
+  });
+  return matchingOption.priceCents;
+}
+
 export function GetDeliveryDate(deliveryOptionId) {
   let matchingOption;
   deliveryOptions.forEach((option) => {
