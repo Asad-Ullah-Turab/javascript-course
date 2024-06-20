@@ -1,12 +1,12 @@
-import { cart, DeleteFromCart } from "../data/cart.js";
-import { products, GetProductById } from "../data/products.js";
+import { cart, DeleteFromCart } from "../../data/cart.js";
+import { products, GetProductById } from "../../data/products.js";
 import {
   deliveryOptions,
   FormatDate,
   FormatPrice,
-} from "../data/deliveryOptions.js";
+} from "../../data/deliveryOptions.js";
 
-function RenderProducts() {
+export function RenderProducts() {
   let checkoutHtml = "";
   cart.forEach((cartItem) => {
     const productItem = GetProductById(cartItem.id);
@@ -84,5 +84,3 @@ function RenderDeliveryOptions(id) {
   });
   return deliveryOptionsHtml;
 }
-
-RenderProducts();
