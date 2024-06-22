@@ -3,6 +3,7 @@ import { GetProductById, CentsToDollars } from "../../data/products.js";
 import { GetDeliveryPrice } from "../../data/deliveryOptions.js";
 
 export function RenderPaymentSummary() {
+  console.log(cart);
   let itemTotal = 0;
   let deliveryTotal = 0;
   let itemAndDeliveryTotal = 0;
@@ -36,12 +37,16 @@ export function RenderPaymentSummary() {
 
     <div class="payment-summary-row">
     <div>Items (3):</div>
-    <div class="payment-summary-money">${CentsToDollars(itemTotal)}</div>
+    <div class="payment-summary-money js-payment-summary-item-total">${CentsToDollars(
+      itemTotal
+    )}</div>
     </div>
 
     <div class="payment-summary-row">
     <div>Shipping &amp; handling:</div>
-    <div class="payment-summary-money">${CentsToDollars(deliveryTotal)}</div>
+    <div class="payment-summary-money js-payment-summary-delivery-total">${CentsToDollars(
+      deliveryTotal
+    )}</div>
     </div>
 
     <div class="payment-summary-row subtotal-row">
@@ -53,12 +58,16 @@ export function RenderPaymentSummary() {
 
     <div class="payment-summary-row">
     <div>Estimated tax (10%):</div>
-    <div class="payment-summary-money">${CentsToDollars(taxTotal)}</div>
+    <div class="payment-summary-money js-payment-summary-tax-total">${CentsToDollars(
+      taxTotal
+    )}</div>
     </div>
 
     <div class="payment-summary-row total-row">
     <div>Order total:</div>
-    <div class="payment-summary-money">${CentsToDollars(orderTotal)}</div>
+    <div class="payment-summary-money js-payment-summary-order-total">${CentsToDollars(
+      orderTotal
+    )}</div>
     </div>
 
     <button class="place-order-button button-primary">
