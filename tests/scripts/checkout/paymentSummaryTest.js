@@ -1,9 +1,9 @@
 import { RenderPaymentSummary } from "../../../scripts/checkout/paymentSummary.js";
-import { loadCartFromStorage } from "../../../data/cart.js";
+import { cart } from "../../../data/cart.js";
 
 describe("RenderPaymentSummary", () => {
   afterAll(() => {
-    //document.querySelector(".test-container").innerHTML = "";
+    document.querySelector(".test-container").innerHTML = "";
   });
 
   it("renders the payment summary", () => {
@@ -16,7 +16,7 @@ describe("RenderPaymentSummary", () => {
         },
       ]);
     });
-    loadCartFromStorage();
+    cart.loadCartFromStorage();
 
     document.querySelector(".test-container").innerHTML = `
       <div class="payment-summary-js"></div> `;

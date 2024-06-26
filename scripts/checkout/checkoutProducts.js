@@ -1,5 +1,5 @@
-import { cart, DeleteFromCart } from "../../data/cart.js";
-import { products, GetProductById } from "../../data/products.js";
+import { cart } from "../../data/cart.js";
+import { GetProductById } from "../../data/products.js";
 import {
   deliveryOptions,
   FormatDate,
@@ -10,7 +10,10 @@ import { RenderPaymentSummary } from "./paymentSummary.js";
 
 export function RenderProducts() {
   let checkoutHtml = "";
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
+    console.log(cartItem);
+  });
+  cart.cartItems.forEach((cartItem) => {
     const productItem = GetProductById(cartItem.id);
     if (productItem) {
       checkoutHtml += `
@@ -60,12 +63,13 @@ export function RenderProducts() {
   document.querySelectorAll(".js-delete-link").forEach((deleteLink) => {
     deleteLink.addEventListener("click", () => {
       const productId = deleteLink.getAttribute("data-product-id");
-      DeleteFromCart(productId);
+      cart.DeleteFromCart(productId);
       RenderProducts();
+      RenderPaymentSummary();
     });
   });
 
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     let deliveryOptionsElems = document.getElementsByName(
       `delivery-option-${cartItem.id}`
     );

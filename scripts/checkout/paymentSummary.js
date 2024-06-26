@@ -11,7 +11,7 @@ export function RenderPaymentSummary() {
   let orderTotal = 0;
 
   // Calculate item total
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     const productItem = GetProductById(cartItem.id);
     if (productItem) {
       itemTotal += productItem.priceCents * cartItem.quantity;
@@ -19,7 +19,7 @@ export function RenderPaymentSummary() {
   });
 
   // Calculate delivery total
-  cart.forEach((cartItem) => {
+  cart.cartItems.forEach((cartItem) => {
     deliveryTotal += GetDeliveryPrice(cartItem.deliveryOptionId);
   });
 

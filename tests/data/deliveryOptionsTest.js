@@ -9,9 +9,15 @@ describe("deliveryOptions", () => {
   });
 
   it("returns the correct delivery date", () => {
-    expect(deliveryOptions.GetDeliveryDate(1)).toBe("Saturday, June 29");
-    expect(deliveryOptions.GetDeliveryDate(2)).toBe("Wednesday, June 26");
-    expect(deliveryOptions.GetDeliveryDate(3)).toBe("Sunday, June 23");
+    expect(deliveryOptions.GetDeliveryDate(1)).toBe(
+      dayjs().add(7, "day").format("dddd, MMMM D")
+    );
+    expect(deliveryOptions.GetDeliveryDate(2)).toBe(
+      dayjs().add(4, "day").format("dddd, MMMM D")
+    );
+    expect(deliveryOptions.GetDeliveryDate(3)).toBe(
+      dayjs().add(1, "day").format("dddd, MMMM D")
+    );
   });
 
   it("formats price correctly", () => {

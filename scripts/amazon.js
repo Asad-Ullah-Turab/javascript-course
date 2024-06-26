@@ -1,4 +1,4 @@
-import { cart, addToCart } from "../data/cart.js";
+import { cart } from "../data/cart.js";
 import { products } from "../data/products.js";
 
 let productsHTML = "";
@@ -65,8 +65,21 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     let quantity = document.querySelector(
       `.js-product-quantity-${productId}`
     ).value;
-    addToCart(productId, parseInt(quantity));
+    cart.addToCart(productId, parseInt(quantity));
   });
 });
 
-document.querySelector(".js-cart-quantity").textContent = cart.length;
+const asdsa = [
+  {
+    id: 1,
+    dodo: "dodo",
+  },
+  {
+    id: 2,
+    dodo: "dodo",
+  },
+];
+
+console.log(cart.cartItems.cartItems);
+console.log(asdsa);
+document.querySelector(".js-cart-quantity").textContent = cart.cartItems.length;
