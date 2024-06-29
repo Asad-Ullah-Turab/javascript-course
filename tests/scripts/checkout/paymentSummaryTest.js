@@ -1,7 +1,11 @@
 import { RenderPaymentSummary } from "../../../scripts/checkout/paymentSummary.js";
 import { cart } from "../../../data/cart.js";
+import { loadProducts } from "../../../data/products.js";
 
 describe("RenderPaymentSummary", () => {
+  beforeAll((done) => {
+    loadProducts(done);
+  });
   afterAll(() => {
     document.querySelector(".test-container").innerHTML = "";
   });

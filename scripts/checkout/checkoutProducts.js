@@ -11,9 +11,6 @@ import { RenderPaymentSummary } from "./paymentSummary.js";
 export function RenderProducts() {
   let checkoutHtml = "";
   cart.cartItems.forEach((cartItem) => {
-    console.log(cartItem);
-  });
-  cart.cartItems.forEach((cartItem) => {
     const productItem = GetProductById(cartItem.id);
     if (productItem) {
       checkoutHtml += `

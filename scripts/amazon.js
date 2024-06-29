@@ -1,10 +1,13 @@
 import { cart } from "../data/cart.js";
-import { products } from "../data/products.js";
+import { products, loadProducts } from "../data/products.js";
 
-let productsHTML = "";
+loadProducts(renderProducts);
 
-products.forEach((product) => {
-  productsHTML += `
+function renderProducts() {
+  let productsHTML = "";
+
+  products.forEach((product) => {
+    productsHTML += `
     <div class="product-container">
       <div class="product-image-container">
         <img class="product-image"
@@ -55,31 +58,31 @@ products.forEach((product) => {
       </button>
     </div>
   `;
-});
-
-document.querySelector(".js-products-grid").innerHTML = productsHTML;
-
-document.querySelectorAll(".js-add-to-cart").forEach((button) => {
-  button.addEventListener("click", () => {
-    let productId = button.getAttribute("data-product-id");
-    let quantity = document.querySelector(
-      `.js-product-quantity-${productId}`
-    ).value;
-    cart.addToCart(productId, parseInt(quantity));
   });
-});
 
-const asdsa = [
-  {
-    id: 1,
-    dodo: "dodo",
-  },
-  {
-    id: 2,
-    dodo: "dodo",
-  },
-];
+  document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
-console.log(cart.cartItems.cartItems);
-console.log(asdsa);
-document.querySelector(".js-cart-quantity").textContent = cart.cartItems.length;
+  document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+    button.addEventListener("click", () => {
+      let productId = button.getAttribute("data-product-id");
+      let quantity = document.querySelector(
+        `.js-product-quantity-${productId}`
+      ).value;
+      cart.addToCart(productId, parseInt(quantity));
+    });
+  });
+
+  const asdsa = [
+    {
+      id: 1,
+      dodo: "dodo",
+    },
+    {
+      id: 2,
+      dodo: "dodo",
+    },
+  ];
+
+  document.querySelector(".js-cart-quantity").textContent =
+    cart.cartItems.length;
+}

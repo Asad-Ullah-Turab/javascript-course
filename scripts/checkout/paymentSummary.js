@@ -3,7 +3,6 @@ import { GetProductById, CentsToDollars } from "../../data/products.js";
 import { GetDeliveryPrice } from "../../data/deliveryOptions.js";
 
 export function RenderPaymentSummary() {
-  console.log(cart);
   let itemTotal = 0;
   let deliveryTotal = 0;
   let itemAndDeliveryTotal = 0;
@@ -70,9 +69,28 @@ export function RenderPaymentSummary() {
     )}</div>
     </div>
 
-    <button class="place-order-button button-primary">
+    <button class="place-order-button button-primary js-place-order-button">
     Place your order
     </button>
   `;
   document.querySelector(".payment-summary-js").innerHTML = paymentSummaryHtml;
+  document
+    .querySelector(".js-place-order-button")
+    .addEventListener("click", async () => {
+      try {
+        const response = await fetch("http://localhost:3000/orders", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            cart: cart,
+          }),
+        });
+        console.log(response);
+      } catch (error) {
+        console.error(error);
+      }
+      window.location.href = "orders.html";
+    });
 }
